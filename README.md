@@ -1,66 +1,43 @@
-## Foundry
+# Getting Started
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Directory Structure
 
-Foundry consists of:
+<pre>
+├── lib: Contains dependencies managed as Git submodules.
+├── src: The main directory for all the contracts.
+├── test: Includes Pietrzak.t.sol, Wesolowski.t.sol and Prime.t.sol for generating JSON files and printing the results on console.
+│   ├── shared: Contains test cases for the Pietrzak VDF, Wesolowski VDF and Prime Test, utility function contracts.
+</pre>
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Install
 
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```
+make install
 ```
 
-### Test
+## Build
 
-```shell
-$ forge test
+```
+make build
 ```
 
-### Format
+## Test
 
-```shell
-$ forge fmt
+```
+make test
 ```
 
-### Gas Snapshots
+This test command generates the following JSON files:
 
-```shell
-$ forge snapshot
-```
+- Pietrzak2048GasUsed.json
+  - Contains the results of gasUsed measurements for 2048-bit data sizes. The `tau` values between 20 and 25, across 5 different test cases for each case.
+- Pietrzak3072GasUsed.json
+  - Contains the results of gasUsed measurements for 3072-bit data sizes. The `tau` values between 20 and 25, across 5 different test cases for each case.
+- PietrzakCalldataLength_IntrinsicGas.json
+  - Contains the results of measuring the calldata length and intrinsic gas for 2048-bit and 3072-bit data sizes of Pietrzak VDF. The `tau` values between 20 and 25, across 5 different test cases.
+- Wesolowski2048And3072.json
+  - Contains the results of gasUsed, calldata length and intrinsic gas for 2048-bit and 3072-bit data sizes. The `tau` values between 20 and 25, across 5 different test cases for each case.
 
-### Anvil
+This test command also prints the result of Prime Test:
 
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+<img src="PrimeTestGasUsed.png" alt="PrimeTestGasUsed" width="500"/>
